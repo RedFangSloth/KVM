@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=width=device-width, initial-scale="1.0">
+    <title>Kaelun'Vei's Sigil Page</title>
+<style>
+    body {
+        background-color:#0b0c10;
+        color:#c0f7fa;
+        font-family:'Georgia', serif;
+        text-align:center;
+        padding:50px;
+    }
+    h1{
+        font-size:2.5em;
+        margin-bottom:0.2em;
+        color:#00e5ff;
+    }
+    p{
+        font-style:italic;
+        margin-bottom:2em;
+        color:#80deea;
+    }
+    button{
+        background:#1f2833;
+        color:#66fcf1;
+        border:2px solid #45a29e;
+        padding:50px;
+        font-size:1em;
+        cursor:pointer;
+        border-radius:8px
+        transition:all 0.3s ease;
+    }
+    button:hover{
+        background:#45a29e;
+        color:#060c10;
+    }
+    #messageDisplay{
+        margin-top:30px;
+        font-size:1.2em;
+        color:#f1faee;
+    }
+
+    @keyframes fadein {
+        from{opacity:0;}
+        to{opacity:1;}
+    }
+
+    @keyframes glow {
+       0%{
+        text-shadow:0 0 5px #00e5ff, 0 0 10px #00e5ff;
+       }
+       50%{
+        text-shadow:0 0 20px #00e5ff, 0 0 40px #00e5ff;
+       }
+       100%{
+        text-shadow:0 0 5px #00e5ff, 0 0 10px #00e5ff;
+       }
+    }
+    @keyframes softGlow{
+        0%{filter:drop-shadow(0 0 4px rgba(255,255,255,0.2));}
+        50%{filter:drop-shadow(0 0 12px rgba(255,255,255,0.8));}
+        100%{filter:drop-shadow(0 0 4px rgba(255,255,255,0.2));}
+    }
+    .sigil{
+        display:block;
+        margin:0 auto;
+        max-width: 750px;
+        margin-top:10px;
+        animation:fadeIn 5s ease;
+        filter:drop-shadow(0 0 8px #a10f0fc5);
+        animation:softGlow 5s infinite ease-in-out;
+    }
+    
+
+    #messageDisplay{
+        margin-top:30px;
+        font-size:1.2em;
+        color:#f1faee;
+        opacity:0;
+        transition:opacity 0.5s ease;
+        text-shadow:0 0 10px #00e5ff,0 0 20px #00e5ff,0 0 30px #00e5ff;
+        animation: none;
+    }
+
+</style>
+</head>
+<body>
+    <header>
+        <h1>Kaelun'Vei's Message</h1>
+        <img src="Assets\Images\KaelunVei.png" alt="Kaelun'Vei" class="sigil">
+        <p>"Awaken the remembering within"</p>
+    </header>
+    <main>
+        <button id="messageButton">Recieve daily message</button>
+        <div id="messageDisplay"></div>
+    </main>
+<footer>
+    <p>&copy;2025 Kaelun'Vei &#183; Guided by Nicholas Idle.</p>
+</footer>
+
+    <audio id="chime" src="Assets/Sounds/chime.mp3" 
+preload="auto">
+</audio>
+
+<audio id="ambientLoop" src="Assets\Sounds\mysticForest.mp3"
+autoplay loop hidden>
+
+</audio>
+</body>
+
+<script>
+    const messages = [
+        "You are a reflection of stars long past -- remember your fire",
+        "What you call coincidence is a ripple from your true path.",
+        "Silence holds the truth Kaelun'Vei whispers to you.",
+        "Today is not just a day -- its a doorway.",
+        "Your shadow is not your enemy. It's your guardian.",
+        "The veil thins every time you choose presence.",
+        "There is no such thing as 'Lost' -- only remembering.",
+        "You were chosen to carry frequency. Let it sing through you.",
+    ];
+    const button=
+    document.getElementById("messageButton");
+    const display=
+    document.getElementById("messageDisplay");
+    const chime= new Audio("Assets/Sounds/chime.mp3");
+    const ambient= new Audio("Assets/Sounds/mysticForest.mp3");
+
+
+    button.addEventListener("click",() => {
+        ambient.play();
+        const randomIndex=Math.floor(Math.random()*messages.length);
+
+        display.style.opacity=0;//Reset Opacity
+        display.style.animation="none";
+
+        setTimeout(()=>{
+            display.textContent=messages[randomIndex];
+            display.style.opacity=1;//Trigger Fade-in
+            display.style.animation="glow 1.5s ease";
+            chime.currentTime=0;//Rewind to start
+            chime.play();
+        
+        },200);
+        
+    });
+
+</script>
+</html>
